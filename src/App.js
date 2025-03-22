@@ -47,7 +47,7 @@ const App = () => {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((response) => {
-            setProfilePicture(response.data.profilePicture);
+            setProfilePicture(`http://localhost:5000/uploads/${response.data.profilePicture}`);
             localStorage.setItem('profilePicture', response.data.profilePicture); // Save it to localStorage
           })
           .catch((error) => {
@@ -91,7 +91,7 @@ const App = () => {
         {loggedIn && (
           <>
             <Avatar
-              src={profilePicture || 'https://via.placeholder.com/150'} // Placeholder if no picture exists
+              src={profilePicture ? profilePicture : 'https://via.placeholder.com/150'}              // Placeholder if no picture exists
               size="large"
               style={{ border: '2px solid white', margin: '20px' }}
               onClick={handleProfileClick}

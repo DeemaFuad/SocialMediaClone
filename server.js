@@ -5,7 +5,8 @@ const connectDB = require("./db");
 const loginRouter = require("./routes/login");  // Import the login route
 const verifyToken = require("./verifyToken");
 const user = require("./models/user"); 
-
+const ProfileRouter = require("./routes/profile");  // Import the login route
+const path = require('path');
 
 dotenv.config();
 const app = express();
@@ -17,6 +18,10 @@ connectDB();
 
 
 app.use("/login", loginRouter);  // Attach login route handler
+app.use("/profile", ProfileRouter);
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 app.get("/picture", verifyToken, async (req, res) => {
   try {
